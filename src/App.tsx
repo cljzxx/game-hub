@@ -9,21 +9,17 @@ function App() {
         base: `"nav" "main"`,
         lg: `"nav nav" "aside main"`,
       }}>
-      {/* 导航区域及背景颜色 */}
+      {/* 导航区域 */}
       <GridItem area='nav'>
         <NavBar />
       </GridItem>
       {/* Show组件根据条件判断显示 */}
       <Show above='lg'>
-        {/* 侧边栏区域及背景颜色 */}
-        <GridItem area='aside' bg='gold'>
-          Aside
-        </GridItem>
+        {/* 侧边栏区域 */}
+        <GridItem area='aside'>Aside</GridItem>
       </Show>
-      {/* 主体区域及背景颜色 */}
-      <GridItem area='main' bg='dodgerblue'>
-        main
-      </GridItem>
+      {/* 主体区域 */}
+      <GridItem area='main'>main</GridItem>
     </Grid>
   )
 }
