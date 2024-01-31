@@ -1,9 +1,13 @@
 import { SimpleGrid, Text } from '@chakra-ui/react'
 import useGames from '../hooks/useGames'
 import GameCard from './GameCard'
+import GameCardSkeleton from './GameCardSkeleton'
 // 游戏网格布局函数
 const GameGrid = () => {
-  const { games, error } = useGames()
+  // 自定义游戏状态钩子
+  const { games, error, isLoading } = useGames()
+  // 为骨架屏模拟的六组数据
+  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   // 返回视图
   return (
     <>
@@ -14,6 +18,9 @@ const GameGrid = () => {
         columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
         padding='10px'
         spacing={10}>
+        {/* 加载中则显示骨架屏 */}
+        {isLoading &&
+          skeletons.map(skeleton => <GameCardSkeleton key={skeleton} />)}
         {games.map(game => (
           // 游戏卡片组件/传参（注意map写：key={game.id}）
           <GameCard key={game.id} game={game} />

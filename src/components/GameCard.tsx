@@ -11,13 +11,13 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   return (
     // 卡片圆角及溢出隐藏
-    <Card borderRadius={10} overflow='hidden'>
+    <Card width='300px' borderRadius={10} overflow='hidden'>
       {/* 使用自定义图片裁剪工具 */}
       <Image src={getCroppedImageUrl(game.background_image)} />
       <CardBody>
         {/* 标题字体大小 */}
         <Heading fontSize='2xl'>{game.name}</Heading>
-
+        {/* 横向排列/两端对齐 */}
         <HStack justifyContent='space-between'>
           {/* 平台图标列表组件（新数组传参：原数组map优化嵌套结构） */}
           <PlatformIconList
