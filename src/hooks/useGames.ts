@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react'
 import apiClient from '../services/api-client'
 import { CanceledError } from 'axios'
+
+export interface Platform {
+  id: number
+  name: string
+  slug: string
+}
+
 // 定义游戏对象界面
 export interface Game {
   id: number
   name: string
-  background_image: string
+  background_image: string // 图片类型（新增）
+  parent_platforms: { platform: Platform }[] // 对象数组/解构对象的属性类型
 }
 // 定义响应数据界面
 interface FetchGamesResponse {
