@@ -2,6 +2,7 @@ import { Card, CardBody, HStack, Heading, Image, Text } from '@chakra-ui/react'
 import { Game } from '../hooks/useGames' // 引入hooks导出的Game界面
 import PlatformIconList from './PlatformIconList'
 import CriticScore from './CriticScore'
+import getCroppedImageUrl from '../services/image-url'
 // 定义参数界面类型
 interface Props {
   game: Game // 注意：background_image: string 图片类型
@@ -11,7 +12,8 @@ const GameCard = ({ game }: Props) => {
   return (
     // 卡片圆角及溢出隐藏
     <Card borderRadius={10} overflow='hidden'>
-      <Image src={game.background_image} />
+      {/* 使用自定义图片裁剪工具 */}
+      <Image src={getCroppedImageUrl(game.background_image)} />
       <CardBody>
         {/* 标题字体大小 */}
         <Heading fontSize='2xl'>{game.name}</Heading>
