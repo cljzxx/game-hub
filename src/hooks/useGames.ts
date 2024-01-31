@@ -14,6 +14,7 @@ export interface Game {
   name: string
   background_image: string // 图片类型（新增）
   parent_platforms: { platform: Platform }[] // 对象数组/解构对象的属性类型
+  metacritic: number // 游戏评分
 }
 // 定义响应数据界面
 interface FetchGamesResponse {
