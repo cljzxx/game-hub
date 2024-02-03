@@ -10,8 +10,7 @@ interface Props {
 // 游戏卡片组件
 const GameCard = ({ game }: Props) => {
   return (
-    // 卡片圆角及溢出隐藏
-    <Card width='300px' borderRadius={10} overflow='hidden'>
+    <Card>
       {/* 使用自定义图片裁剪工具 */}
       <Image src={getCroppedImageUrl(game.background_image)} />
       <CardBody>
