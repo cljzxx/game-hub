@@ -16,22 +16,23 @@ const GameGrid = () => {
       {error && <Text>{error}</Text>}
       {/* 简易网格布局/根据屏幕大小控制列数/内边距/间距 */}
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
         padding='10px'
-        spacing={10}>
+        // 间距由10变成3
+        spacing={3}>
         {/* 加载中则显示骨架屏 */}
         {isLoading &&
           skeletons.map(skeleton => (
-            // 容器组件包裹
-            <GameCardContainer>
-              <GameCardSkeleton key={skeleton} />
+            // 容器组件包裹（注意key值）
+            <GameCardContainer key={skeleton}>
+              <GameCardSkeleton />
             </GameCardContainer>
           ))}
         {data.map(game => (
-          // 容器组件包裹
-          <GameCardContainer>
-            {/* 游戏卡片组件/传参（注意map写：key={game.id}） */}
-            <GameCard key={game.id} game={game} />
+          // 容器组件包裹（注意key值）
+          <GameCardContainer key={game.id}>
+            {/* 游戏卡片组件/传参 */}
+            <GameCard game={game} />
           </GameCardContainer>
         ))}
       </SimpleGrid>

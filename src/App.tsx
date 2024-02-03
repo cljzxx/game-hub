@@ -10,6 +10,10 @@ function App() {
       templateAreas={{
         base: `"nav" "main"`,
         lg: `"nav nav" "aside main"`,
+      }}
+      templateColumns={{
+        base: '1fr', // 基本/无侧边栏/一个占据空间单位
+        lg: '200px 1fr', // 大屏/侧边栏200px/一个占据空间单位
       }}>
       {/* 导航区域 */}
       <GridItem area='nav'>
@@ -17,8 +21,8 @@ function App() {
       </GridItem>
       {/* Show组件根据条件判断显示 */}
       <Show above='lg'>
-        {/* 侧边栏区域 */}
-        <GridItem area='aside'>
+        {/* 侧边栏区域/水平内边距 */}
+        <GridItem area='aside' paddingX={5}>
           <GenreList />
         </GridItem>
       </Show>
