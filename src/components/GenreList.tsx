@@ -1,15 +1,14 @@
 import useGenres from '../hooks/useGenres'
-// 类型列表组件
+// 流派列表组件
 const GenreList = () => {
-  // 自定义类型状态钩子
-  const { genres } = useGenres()
+  // 使用流派钩子
+  const { data } = useGenres()
   return (
     <ul>
-      {genres.map(genre => (
+      {data.map(genre => (
         <li key={genre.id}>{genre.name}</li>
       ))}
     </ul>
   )
 }
-
 export default GenreList
