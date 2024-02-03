@@ -1,10 +1,14 @@
-import { HStack, List, ListItem, Image, Text } from '@chakra-ui/react'
+import { HStack, List, ListItem, Image, Text, Spinner } from '@chakra-ui/react'
 import useGenres from '../hooks/useGenres'
 import getCroppedImageUrl from '../services/image-url'
 // 流派列表组件
 const GenreList = () => {
   // 使用流派钩子
-  const { data } = useGenres()
+  const { data, isLoading, error } = useGenres()
+  // 如果侧边栏发生异常错误则返回空，不提示也不渲染
+  if (error) return null
+  // 如果加载中则显示Spinner组件
+  if (isLoading) return <Spinner />
   return (
     // 列表组件/项目组件/横向排列/图片组件/文本组件
     <List>
