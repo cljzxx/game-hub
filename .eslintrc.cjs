@@ -15,6 +15,9 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off", // 下划线提示
+    "@typescript-eslint/no-explicit-any": "off", // 显性any类型问题
+    // "react-hooks/rules-of-hooks": 'off', // 暂未知作用
+    "react-hooks/exhaustive-deps": 'off' // useEffect结尾数组传参问题
   },
 }

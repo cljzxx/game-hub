@@ -1,8 +1,21 @@
-import { HStack, List, ListItem, Image, Text, Spinner } from '@chakra-ui/react'
-import useGenres from '../hooks/useGenres'
+import {
+  HStack,
+  List,
+  ListItem,
+  Image,
+  Spinner,
+  Button,
+} from '@chakra-ui/react'
+import useGenres, { Genre } from '../hooks/useGenres'
 import getCroppedImageUrl from '../services/image-url'
+
+// 定义传递回调函数
+interface Props {
+  onSelectGenre: (genre: Genre) => void
+}
+
 // 流派列表组件
-const GenreList = () => {
+const GenreList = ({ onSelectGenre }: Props) => {
   // 使用流派钩子
   const { data, isLoading, error } = useGenres()
   // 如果侧边栏发生异常错误则返回空，不提示也不渲染
@@ -21,7 +34,13 @@ const GenreList = () => {
               // 使用裁剪组件处理图片
               src={getCroppedImageUrl(genre.image_background)}
             />
-            <Text fontSize={'large'}>{genre.name}</Text>
+            {/* 按钮组件/点击效果/点击事件 */}
+            <Button
+              onClick={() => onSelectGenre(genre)}
+              fontSize={'large'}
+              variant={'link'}>
+              {genre.name}
+            </Button>
           </HStack>
         </ListItem>
       ))}

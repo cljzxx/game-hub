@@ -3,10 +3,17 @@ import useGames from '../hooks/useGames'
 import GameCard from './GameCard'
 import GameCardSkeleton from './GameCardSkeleton'
 import GameCardContainer from './GameCardContainer'
-// 游戏网格布局函数
-const GameGrid = () => {
-  // 使用游戏钩子
-  const { data, error, isLoading } = useGames()
+import { Genre } from '../hooks/useGenres'
+
+// 定义已选择对象参数
+interface Props {
+  selectedGenre: Genre | null // 参数类型或者为空类型/即可以传null
+}
+
+// 游戏网格布局组件/已选择对象参数
+const GameGrid = ({ selectedGenre }: Props) => {
+  // 使用游戏钩子/传参已选择对象
+  const { data, error, isLoading } = useGames(selectedGenre)
   // 为骨架屏模拟的六组数据
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   // 返回视图

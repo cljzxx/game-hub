@@ -1,4 +1,5 @@
 import useData from './useData'
+import { Genre } from './useGenres'
 export interface Platform {
   id: number
   name: string
@@ -13,6 +14,11 @@ export interface Game {
   metacritic: number // 游戏评分
 }
 // 游戏钩子组件（返回通用数据钩子/流派类型/流派端点）
-const useGames = () => useData<Game>('/games')
+// 第二参数：配置查询传参/genres是接口对应的查询参数/可用id值查询（可选性）
+// 第三参数：特意给通用数据钩子设置刷新数据用的数组参数（可选性）
+const useGames = (selectedGenre: Genre | null) =>
+  useData<Game>('/games', { params: { genres: selectedGenre?.id } }, [
+    selectedGenre?.id,
+  ])
 // 默认导出hook
 export default useGames
