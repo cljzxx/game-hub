@@ -12,10 +12,11 @@ import getCroppedImageUrl from '../services/image-url'
 // 定义传递回调函数
 interface Props {
   onSelectGenre: (genre: Genre) => void
+  selectedGenre: Genre | null // 定义已选择参数
 }
 
-// 流派列表组件
-const GenreList = ({ onSelectGenre }: Props) => {
+// 流派列表组件（已选中参数，回调函数参数）
+const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   // 使用流派钩子
   const { data, isLoading, error } = useGenres()
   // 如果侧边栏发生异常错误则返回空，不提示也不渲染
@@ -36,6 +37,8 @@ const GenreList = ({ onSelectGenre }: Props) => {
             />
             {/* 按钮组件/点击效果/点击事件 */}
             <Button
+              // 字体粗细根据当前列表流派id等于已选中流派id来判断
+              fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'}
               onClick={() => onSelectGenre(genre)}
               fontSize={'large'}
               variant={'link'}>

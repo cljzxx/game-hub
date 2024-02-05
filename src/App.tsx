@@ -28,7 +28,12 @@ function App() {
       <Show above='lg'>
         {/* 侧边栏区域/水平内边距 */}
         <GridItem area='aside' paddingX={5}>
-          <GenreList onSelectGenre={genre => setSelectedGenre(genre)} />
+          <GenreList
+            // 传参已选择对象给游戏列表组件接收
+            selectedGenre={selectedGenre}
+            // 回调函数/点击事件返回已选择参数/更新已选择状态数据
+            onSelectGenre={genre => setSelectedGenre(genre)}
+          />
         </GridItem>
       </Show>
       {/* 主体区域 */}
