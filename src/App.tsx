@@ -4,6 +4,7 @@ import GameGrid from './components/GameGrid'
 import GenreList from './components/GenreList'
 import { useState } from 'react'
 import { Genre } from './hooks/useGenres'
+import PlatformSelector from './components/PlatformSelector'
 
 function App() {
   // 流派选中状态/指定对象流派类型/默认空对象即未选中/空类型要定义
@@ -38,6 +39,8 @@ function App() {
       </Show>
       {/* 主体区域 */}
       <GridItem area='main'>
+        {/* 平台选择器组件 */}
+        <PlatformSelector />
         {/* 传参已选择对象给游戏网格组件接收 */}
         <GameGrid selectedGenre={selectedGenre} />
       </GridItem>
