@@ -5,11 +5,15 @@ import GenreList from './components/GenreList'
 import { useState } from 'react'
 import { Genre } from './hooks/useGenres'
 import PlatformSelector from './components/PlatformSelector'
+import { Platform } from './hooks/usePlatforms'
 
 function App() {
   // 流派选中状态/指定对象流派类型/默认空对象即未选中/空类型要定义
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
-
+  // 平台选中状态/指定对象平台类型/默认空对象即未选中/空类型要定义
+  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
+    null
+  )
   return (
     // 网格布局（注意双大括号）
     <Grid
@@ -39,10 +43,16 @@ function App() {
       </Show>
       {/* 主体区域 */}
       <GridItem area='main'>
-        {/* 平台选择器组件 */}
-        <PlatformSelector />
+        {/* 平台选择器组件/点击事件返回已选择参数/更新已选择状态数据*/}
+        <PlatformSelector
+          selectedPlatform={selectedPlatform}
+          onSelectPlatform={platform => setSelectedPlatform(platform)}
+        />
         {/* 传参已选择对象给游戏网格组件接收 */}
-        <GameGrid selectedGenre={selectedGenre} />
+        <GameGrid
+          selectedPlatform={selectedPlatform}
+          selectedGenre={selectedGenre}
+        />
       </GridItem>
     </Grid>
   )

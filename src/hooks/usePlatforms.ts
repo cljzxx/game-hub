@@ -1,6 +1,6 @@
 import useData from './useData'
 // 定义接口参数及类型
-interface Platform {
+export interface Platform {
   id: number
   name: string
   slug: string

@@ -14,11 +14,16 @@ export interface Game {
   metacritic: number // 游戏评分
 }
 // 游戏钩子组件（返回通用数据钩子/流派类型/流派端点）
-// 第二参数：配置查询传参/genres是接口对应的查询参数/可用id值查询（可选性）
-// 第三参数：特意给通用数据钩子设置刷新数据用的数组参数（可选性）
-const useGames = (selectedGenre: Genre | null) =>
-  useData<Game>('/games', { params: { genres: selectedGenre?.id } }, [
-    selectedGenre?.id,
-  ])
+// 第二参数：配置查询传参/genres/platforms是接口对应的查询参数/可用id值查询（可选性）
+// 第三参数：特意给通用数据钩子设置刷新渲染数据用的数组参数/即参数更新重新渲染（可选性）
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) =>
+  useData<Game>(
+    '/games',
+    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
+    [selectedGenre?.id, selectedPlatform?.id]
+  )
 // 默认导出hook
 export default useGames
