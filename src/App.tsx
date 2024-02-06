@@ -7,13 +7,16 @@ import { Genre } from './hooks/useGenres'
 import PlatformSelector from './components/PlatformSelector'
 import { Platform } from './hooks/usePlatforms'
 
+// 游戏查询对象
+export interface GameQuery {
+  genre: Genre | null // 流派对象
+  platform: Platform | null //平台对象
+}
+
 function App() {
-  // 流派选中状态/指定对象流派类型/默认空对象即未选中/空类型要定义
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
-  // 平台选中状态/指定对象平台类型/默认空对象即未选中/空类型要定义
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-    null
-  )
+  // 游戏查询状态管理/GameQuery类型/默认空对象并指明是GameQuery的默认结构
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery)
+
   return (
     // 网格布局（注意双大括号）
     <Grid
@@ -34,24 +37,28 @@ function App() {
         {/* 侧边栏区域/水平内边距 */}
         <GridItem area='aside' paddingX={5}>
           <GenreList
-            // 传参已选择对象给游戏列表组件接收
-            selectedGenre={selectedGenre}
-            // 回调函数/点击事件返回已选择参数/更新已选择状态数据
-            onSelectGenre={genre => setSelectedGenre(genre)}
+            // 传入当前游戏查询对象的属性流派对象
+            selectedGenre={gameQuery.genre}
+            // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性流派对象
+            onSelectGenre={genre => setGameQuery({ ...gameQuery, genre })}
           />
         </GridItem>
       </Show>
       {/* 主体区域 */}
       <GridItem area='main'>
-        {/* 平台选择器组件/点击事件返回已选择参数/更新已选择状态数据*/}
+        {/* 平台选择器组件 */}
         <PlatformSelector
-          selectedPlatform={selectedPlatform}
-          onSelectPlatform={platform => setSelectedPlatform(platform)}
+          // 传入当前游戏查询对象的属性平台对象
+          selectedPlatform={gameQuery.platform}
+          // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性平台对象
+          onSelectPlatform={platform =>
+            setGameQuery({ ...gameQuery, platform })
+          }
         />
-        {/* 传参已选择对象给游戏网格组件接收 */}
+        {/* 传参给游戏网格组件接收 */}
         <GameGrid
-          selectedPlatform={selectedPlatform}
-          selectedGenre={selectedGenre}
+          // 传入当前游戏查询对象
+          GameQuery={gameQuery}
         />
       </GridItem>
     </Grid>

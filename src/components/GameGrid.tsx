@@ -5,17 +5,17 @@ import GameCardSkeleton from './GameCardSkeleton'
 import GameCardContainer from './GameCardContainer'
 import { Genre } from '../hooks/useGenres'
 import { Platform } from '../hooks/usePlatforms'
+import { GameQuery } from '../App'
 
-// 定义已选择对象参数
+// 参数对象
 interface Props {
-  selectedGenre: Genre | null // 参数类型或者为空类型/即可以传null
-  selectedPlatform: Platform | null // 参数类型或者为空类型/即可以传null
+  GameQuery: GameQuery // 游戏查询对象/类型
 }
 
-// 游戏网格布局组件/已选择对象参数
-const GameGrid = ({ selectedGenre, selectedPlatform }: Props) => {
-  // 使用游戏钩子/传参已选择对象
-  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform)
+// 游戏网格布局组件/游戏查询对象参数
+const GameGrid = ({ GameQuery }: Props) => {
+  // 使用游戏钩子/传入游戏查询对象
+  const { data, error, isLoading } = useGames(GameQuery)
   // 为骨架屏模拟的六组数据
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   // 返回视图

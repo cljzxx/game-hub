@@ -1,5 +1,5 @@
 import useData from './useData'
-import { Genre } from './useGenres'
+import { GameQuery } from '../App'
 export interface Platform {
   id: number
   name: string
@@ -13,17 +13,18 @@ export interface Game {
   parent_platforms: { platform: Platform }[] // 对象数组/解构对象的属性类型
   metacritic: number // 游戏评分
 }
-// 游戏钩子组件（返回通用数据钩子/流派类型/流派端点）
-// 第二参数：配置查询传参/genres/platforms是接口对应的查询参数/可用id值查询（可选性）
-// 第三参数：特意给通用数据钩子设置刷新渲染数据用的数组参数/即参数更新重新渲染（可选性）
-const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
-) =>
+// 游戏钩子组件（返回通用数据钩子结果/游戏查询对象参数）
+const useGames = (GameQuery: GameQuery) =>
+  // 游戏类型/游戏端点
   useData<Game>(
     '/games',
-    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
-    [selectedGenre?.id, selectedPlatform?.id]
+    {
+      params: {
+        genres: GameQuery.genre?.id, // 查询参数/流派ID/可选性
+        platforms: GameQuery.platform?.id, // 查询参数/平台ID/可选性
+      },
+    },
+    [GameQuery] // 通用数据刷新渲染的数组参数（只要该对象内有变化即触发渲染更新）
   )
 // 默认导出hook
 export default useGames
