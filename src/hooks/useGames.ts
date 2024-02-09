@@ -22,6 +22,7 @@ const useGames = (GameQuery: GameQuery) =>
       params: {
         genres: GameQuery.genre?.id, // 查询参数/流派ID/可选性
         platforms: GameQuery.platform?.id, // 查询参数/平台ID/可选性
+        ordering: GameQuery.sortOrder, // 查询参数/排序值
       },
     },
     [GameQuery] // 通用数据刷新渲染的数组参数（只要该对象内有变化即触发渲染更新）

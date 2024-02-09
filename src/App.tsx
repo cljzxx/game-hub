@@ -1,4 +1,4 @@
-import { Grid, GridItem, Show } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Show } from '@chakra-ui/react'
 import NavBar from './components/NavBar'
 import GameGrid from './components/GameGrid'
 import GenreList from './components/GenreList'
@@ -6,11 +6,13 @@ import { useState } from 'react'
 import { Genre } from './hooks/useGenres'
 import PlatformSelector from './components/PlatformSelector'
 import { Platform } from './hooks/usePlatforms'
+import Seletesort from './components/SortSelector'
 
 // 游戏查询对象
 export interface GameQuery {
   genre: Genre | null // 流派对象
   platform: Platform | null //平台对象
+  sortOrder: string // 当前排序值
 }
 
 function App() {
@@ -47,14 +49,26 @@ function App() {
       {/* 主体区域 */}
       <GridItem area='main'>
         {/* 平台选择器组件 */}
-        <PlatformSelector
-          // 传入当前游戏查询对象的属性平台对象
-          selectedPlatform={gameQuery.platform}
-          // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性平台对象
-          onSelectPlatform={platform =>
-            setGameQuery({ ...gameQuery, platform })
-          }
-        />
+        <Flex marginLeft={3} marginBottom={5}>
+          <Box marginRight={5}>
+            <PlatformSelector
+              // 传入当前游戏查询对象的属性平台对象
+              selectedPlatform={gameQuery.platform}
+              // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性平台对象
+              onSelectPlatform={platform =>
+                setGameQuery({ ...gameQuery, platform })
+              }
+            />
+          </Box>
+          <Seletesort
+            // 当前排序值
+            sortOrder={gameQuery.sortOrder}
+            // 回调函数/构建新对象/更新排序值
+            onSelectSortOrder={sortOrder =>
+              setGameQuery({ ...gameQuery, sortOrder })
+            }
+          />
+        </Flex>
         {/* 传参给游戏网格组件接收 */}
         <GameGrid
           // 传入当前游戏查询对象

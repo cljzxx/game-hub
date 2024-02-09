@@ -1,5 +1,8 @@
+// 引入图片
+import noImage from '../assets/no-image-placeholder.webp'
 // 自定义图片裁剪工具（参数：图片地址）
 const getCroppedImageUrl = (url: string) => {
+  if (!url) return noImage // 如果没有图片地址/则使用默认图片
   // 目标路径字段
   const target = 'media/'
   // 图片地址中第一次出现'media/'的索引位置+'media/'的长度==结束位置索引
