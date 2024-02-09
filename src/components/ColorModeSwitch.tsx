@@ -12,8 +12,8 @@ const ColorModeSwitch = () => {
         isChecked={colorMode === 'dark'}
         onChange={toggleColorMode}
       />
-      {/* 文本组件 */}
-      <Text>Dark Mode</Text>
+      {/* 文本组件/强制不换行 */}
+      <Text whiteSpace={'nowrap'}>Dark Mode</Text>
     </HStack>
   )
 }
