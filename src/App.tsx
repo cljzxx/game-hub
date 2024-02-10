@@ -13,6 +13,7 @@ export interface GameQuery {
   genre: Genre | null // 流派对象
   platform: Platform | null //平台对象
   sortOrder: string // 当前排序值
+  searchText: string // 查询内容
 }
 
 function App() {
@@ -32,7 +33,9 @@ function App() {
       }}>
       {/* 导航区域 */}
       <GridItem area='nav'>
-        <NavBar />
+        <NavBar
+          onSearch={searchText => setGameQuery({ ...gameQuery, searchText })}
+        />
       </GridItem>
       {/* Show组件根据条件判断显示 */}
       <Show above='lg'>
