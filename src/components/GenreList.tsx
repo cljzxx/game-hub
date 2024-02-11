@@ -5,6 +5,7 @@ import {
   Image,
   Spinner,
   Button,
+  Heading,
 } from '@chakra-ui/react'
 import useGenres, { Genre } from '../hooks/useGenres'
 import getCroppedImageUrl from '../services/image-url'
@@ -24,30 +25,39 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   // 如果加载中则显示Spinner组件
   if (isLoading) return <Spinner />
   return (
-    // 列表组件/项目组件/横向排列/图片组件/文本组件
-    <List>
-      {data.map(genre => (
-        <ListItem key={genre.id} paddingY={'5px'}>
-          <HStack>
-            <Image
-              boxSize={'32px'}
-              borderRadius={8}
-              // 使用裁剪组件处理图片
-              src={getCroppedImageUrl(genre.image_background)}
-            />
-            {/* 按钮组件/点击效果/点击事件 */}
-            <Button
-              // 字体粗细根据当前列表流派id等于已选中流派id来判断
-              fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'}
-              onClick={() => onSelectGenre(genre)}
-              fontSize={'large'}
-              variant={'link'}>
-              {genre.name}
-            </Button>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      {/* 流派标题 */}
+      <Heading fontSize={'2xl'} marginBottom={3}>
+        Genre
+      </Heading>
+      {/* 列表组件/项目组件/横向排列/图片组件/文本组件 */}
+      <List>
+        {data.map(genre => (
+          <ListItem key={genre.id} paddingY={'5px'}>
+            <HStack>
+              <Image
+                boxSize={'32px'}
+                borderRadius={8}
+                objectFit={'cover'} // 图片自适应填充
+                // 使用裁剪组件处理图片
+                src={getCroppedImageUrl(genre.image_background)}
+              />
+              {/* 按钮组件/点击效果/点击事件 */}
+              <Button
+                whiteSpace={'normal'} // 自动换行
+                textAlign={'left'} // 文本左对齐
+                // 字体粗细根据当前列表流派id等于已选中流派id来判断
+                fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'}
+                onClick={() => onSelectGenre(genre)}
+                fontSize={'large'}
+                variant={'link'}>
+                {genre.name}
+              </Button>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </>
   )
 }
 export default GenreList
