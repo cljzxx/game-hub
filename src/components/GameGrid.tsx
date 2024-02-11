@@ -25,10 +25,10 @@ const GameGrid = ({ GameQuery }: Props) => {
       {error && <Text>{error}</Text>}
       {/* 简易网格布局/根据屏幕大小控制列数/内边距/间距 */}
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         padding='10px'
         // 间距由10变成3
-        spacing={3}>
+        spacing={6}>
         {/* 加载中则显示骨架屏 */}
         {isLoading &&
           skeletons.map(skeleton => (

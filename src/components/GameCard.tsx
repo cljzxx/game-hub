@@ -14,10 +14,8 @@ const GameCard = ({ game }: Props) => {
       {/* 使用自定义图片裁剪工具 */}
       <Image src={getCroppedImageUrl(game.background_image)} />
       <CardBody>
-        {/* 标题字体大小 */}
-        <Heading fontSize='2xl'>{game.name}</Heading>
         {/* 横向排列/两端对齐 */}
-        <HStack justifyContent='space-between'>
+        <HStack justifyContent='space-between' marginBottom={3}>
           {/* 平台图标列表组件（新数组传参：原数组map优化嵌套结构） */}
           <PlatformIconList
             platforms={game.parent_platforms.map(p => p.platform)}
@@ -25,6 +23,8 @@ const GameCard = ({ game }: Props) => {
           {/* 游戏评分组件 */}
           <CriticScore score={game.metacritic} />
         </HStack>
+        {/* 标题字体大小 */}
+        <Heading fontSize='2xl'>{game.name}</Heading>
       </CardBody>
     </Card>
   )
