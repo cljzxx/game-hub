@@ -1,8 +1,9 @@
-import { Card, CardBody, HStack, Heading, Image, Text } from '@chakra-ui/react'
+import { Card, CardBody, HStack, Heading, Image } from '@chakra-ui/react'
 import { Game } from '../hooks/useGames' // 引入hooks导出的Game界面
 import PlatformIconList from './PlatformIconList'
 import CriticScore from './CriticScore'
 import getCroppedImageUrl from '../services/image-url'
+import Emoji from './Emoji'
 // 定义参数界面类型
 interface Props {
   game: Game // 注意：background_image: string 图片类型
@@ -25,6 +26,8 @@ const GameCard = ({ game }: Props) => {
         </HStack>
         {/* 标题字体大小 */}
         <Heading fontSize='2xl'>{game.name}</Heading>
+        {/* 表情符号组件/传参评级分数 */}
+        <Emoji rating={game.rating_top} />
       </CardBody>
     </Card>
   )

@@ -12,6 +12,7 @@ export interface Game {
   background_image: string // 图片类型（新增）
   parent_platforms: { platform: Platform }[] // 对象数组/解构对象的属性类型
   metacritic: number // 游戏评分
+  rating_top: number // 评级分数
 }
 // 游戏钩子组件（返回通用数据钩子结果/游戏查询对象参数）
 const useGames = (GameQuery: GameQuery) =>
