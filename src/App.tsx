@@ -7,6 +7,7 @@ import { Genre } from './hooks/useGenres'
 import PlatformSelector from './components/PlatformSelector'
 import { Platform } from './hooks/usePlatforms'
 import Seletesort from './components/SortSelector'
+import GameHeading from './components/GameHeading'
 
 // 游戏查询对象
 export interface GameQuery {
@@ -51,27 +52,31 @@ function App() {
       </Show>
       {/* 主体区域 */}
       <GridItem area='main'>
-        {/* 平台选择器组件 */}
-        <Flex marginLeft={3} marginBottom={5}>
-          <Box marginRight={5}>
-            <PlatformSelector
-              // 传入当前游戏查询对象的属性平台对象
-              selectedPlatform={gameQuery.platform}
-              // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性平台对象
-              onSelectPlatform={platform =>
-                setGameQuery({ ...gameQuery, platform })
+        {/* 整体包裹后左边距 */}
+        <Box marginLeft={2}>
+          <GameHeading gameQuery={gameQuery} />
+          {/* 平台选择器组件 */}
+          <Flex marginBottom={5}>
+            <Box marginRight={5}>
+              <PlatformSelector
+                // 传入当前游戏查询对象的属性平台对象
+                selectedPlatform={gameQuery.platform}
+                // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性平台对象
+                onSelectPlatform={platform =>
+                  setGameQuery({ ...gameQuery, platform })
+                }
+              />
+            </Box>
+            <Seletesort
+              // 当前排序值
+              sortOrder={gameQuery.sortOrder}
+              // 回调函数/构建新对象/更新排序值
+              onSelectSortOrder={sortOrder =>
+                setGameQuery({ ...gameQuery, sortOrder })
               }
             />
-          </Box>
-          <Seletesort
-            // 当前排序值
-            sortOrder={gameQuery.sortOrder}
-            // 回调函数/构建新对象/更新排序值
-            onSelectSortOrder={sortOrder =>
-              setGameQuery({ ...gameQuery, sortOrder })
-            }
-          />
-        </Flex>
+          </Flex>
+        </Box>
         {/* 传参给游戏网格组件接收 */}
         <GameGrid
           // 传入当前游戏查询对象
