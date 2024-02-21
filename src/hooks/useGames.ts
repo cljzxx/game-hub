@@ -1,5 +1,5 @@
 import { GameQuery } from '../App'
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { Platform } from './usePlatforms'
 import APIClient from '../services/api-client'
 
@@ -17,10 +17,11 @@ export interface Game {
 }
 // 游戏钩子组件/使用突变查询（游戏查询对象参数）
 const useGames = (GameQuery: GameQuery) =>
-  useQuery({
+  // 无限突变查询方法
+  useInfiniteQuery({
     queryKey: ['games', GameQuery], // 缓存key/唯一性
-    // 获取配置查询条件后的数据返回值
-    queryFn: () =>
+    // 获取配置查询条件后的数据返回值/翻页参数
+    queryFn: ({ pageParam }) =>
       // 通用请求实例/根据配置查询条件获取数据
       apiClient.getAll({
         params: {
@@ -28,8 +29,15 @@ const useGames = (GameQuery: GameQuery) =>
           parent_platforms: GameQuery.platform?.id, // 父级字段/查询参数/平台ID/可选性
           ordering: GameQuery.sortOrder, // 查询参数/排序值
           search: GameQuery.searchText, // 查询参数/搜索标题
+          page: pageParam, // 翻页参数
         },
       }),
+    initialPageParam: 1, // 初始化页数
+    // 获取下一页方法/参数：最后一页和全部页面集合
+    getNextPageParam: (lastPage, allPages) => {
+      // 如果最后一页存在下一页/则继续全部页面集合长度+1/否则未定义
+      return lastPage.next ? allPages.length + 1 : undefined
+    },
   })
 
 // 默认导出hook
