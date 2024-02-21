@@ -1,7 +1,10 @@
 import { GameQuery } from '../App'
 import { useQuery } from '@tanstack/react-query'
-import apiClient, { FetchResponse } from '../services/api-client'
 import { Platform } from './usePlatforms'
+import APIClient from '../services/api-client'
+
+// 创建通用请求类实例/指定对象类型/端点参数
+const apiClient = new APIClient<Game>('/games')
 
 // 定义游戏对象界面
 export interface Game {
@@ -16,18 +19,17 @@ export interface Game {
 const useGames = (GameQuery: GameQuery) =>
   useQuery({
     queryKey: ['games', GameQuery], // 缓存key/唯一性
+    // 获取配置查询条件后的数据返回值
     queryFn: () =>
-      // 通用API请求配置端点/返回参数Game类型的FetchResponse类型数据结构
-      apiClient
-        .get<FetchResponse<Game>>('/games', {
-          params: {
-            genres: GameQuery.genre?.id, // 查询参数/流派ID/可选性
-            parent_platforms: GameQuery.platform?.id, // 父级/查询参数/平台ID/可选性
-            ordering: GameQuery.sortOrder, // 查询参数/排序值
-            search: GameQuery.searchText, // 查询参数/搜索标题
-          },
-        })
-        .then(res => res.data.results), // 返回结果对象
+      // 通用请求实例/根据配置查询条件获取数据
+      apiClient.getAll({
+        params: {
+          genres: GameQuery.genre?.id, // 查询参数/流派ID/可选性
+          parent_platforms: GameQuery.platform?.id, // 父级字段/查询参数/平台ID/可选性
+          ordering: GameQuery.sortOrder, // 查询参数/排序值
+          search: GameQuery.searchText, // 查询参数/搜索标题
+        },
+      }),
   })
 
 // 默认导出hook

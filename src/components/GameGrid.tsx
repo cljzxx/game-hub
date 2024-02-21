@@ -36,7 +36,7 @@ const GameGrid = ({ GameQuery }: Props) => {
             <GameCardSkeleton />
           </GameCardContainer>
         ))}
-      {data?.map(game => (
+      {data?.results.map(game => (
         // 容器组件包裹（注意key值）
         <GameCardContainer key={game.id}>
           {/* 游戏卡片组件/传参 */}
