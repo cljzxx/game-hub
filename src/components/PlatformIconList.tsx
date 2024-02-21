@@ -11,7 +11,7 @@ import { SiNintendo } from 'react-icons/si'
 import { BsGlobe } from 'react-icons/bs'
 // 以上是各种游戏平台icon的引入
 import { HStack, Icon } from '@chakra-ui/react'
-import { Platform } from '../hooks/useGames'
+import { Platform } from '../hooks/usePlatforms'
 import { IconType } from 'react-icons'
 // 定义参数界面（数组对象）
 interface Props {
