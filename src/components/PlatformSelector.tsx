@@ -21,7 +21,8 @@ const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
       </MenuButton>
       {/* 下拉菜单列表 */}
       <MenuList>
-        {data.map(platform => (
+        {/* 从data.results获取数据 */}
+        {data?.results.map(platform => (
           <MenuItem
             key={platform.id}
             onClick={() => onSelectPlatform(platform)}>

@@ -1,5 +1,6 @@
-import useData from './useData'
 import { GameQuery } from '../App'
+import { useQuery } from '@tanstack/react-query'
+import apiClient, { FetchResponse } from '../services/api-client'
 export interface Platform {
   id: number
   name: string
@@ -14,20 +15,23 @@ export interface Game {
   metacritic: number // 游戏评分
   rating_top: number // 评级分数
 }
-// 游戏钩子组件（返回通用数据钩子结果/游戏查询对象参数）
+// 游戏钩子组件/使用突变查询（游戏查询对象参数）
 const useGames = (GameQuery: GameQuery) =>
-  // 游戏类型/游戏端点
-  useData<Game>(
-    '/games',
-    {
-      params: {
-        genres: GameQuery.genre?.id, // 查询参数/流派ID/可选性
-        platforms: GameQuery.platform?.id, // 查询参数/平台ID/可选性
-        ordering: GameQuery.sortOrder, // 查询参数/排序值
-        search: GameQuery.searchText, // 查询参数/搜索标题
-      },
-    },
-    [GameQuery] // 通用数据刷新渲染的数组参数（只要该对象内有变化即触发渲染更新）
-  )
+  useQuery({
+    queryKey: ['games', GameQuery], // 缓存key/唯一性
+    queryFn: () =>
+      // 通用API请求配置端点/返回参数Game类型的FetchResponse类型数据结构
+      apiClient
+        .get<FetchResponse<Game>>('/games', {
+          params: {
+            genres: GameQuery.genre?.id, // 查询参数/流派ID/可选性
+            parent_platforms: GameQuery.platform?.id, // 父级/查询参数/平台ID/可选性
+            ordering: GameQuery.sortOrder, // 查询参数/排序值
+            search: GameQuery.searchText, // 查询参数/搜索标题
+          },
+        })
+        .then(res => res.data.results), // 返回结果对象
+  })
+
 // 默认导出hook
 export default useGames

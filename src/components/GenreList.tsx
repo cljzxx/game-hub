@@ -32,7 +32,8 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
       </Heading>
       {/* 列表组件/项目组件/横向排列/图片组件/文本组件 */}
       <List>
-        {data.map(genre => (
+        {/* 从data.results获取数据 */}
+        {data?.results.map(genre => (
           <ListItem key={genre.id} paddingY={'5px'}>
             <HStack>
               <Image

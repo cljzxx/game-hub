@@ -18,7 +18,7 @@ const GameGrid = ({ GameQuery }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
   // 如果有错误则显示错误信息（JSX）
-  if (error) return <Text>{error}</Text>
+  if (error) return <Text>{error.message}</Text>
 
   // 返回视图
   return (
@@ -36,7 +36,7 @@ const GameGrid = ({ GameQuery }: Props) => {
             <GameCardSkeleton />
           </GameCardContainer>
         ))}
-      {data.map(game => (
+      {data?.map(game => (
         // 容器组件包裹（注意key值）
         <GameCardContainer key={game.id}>
           {/* 游戏卡片组件/传参 */}
