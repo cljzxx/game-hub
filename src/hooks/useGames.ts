@@ -38,6 +38,7 @@ const useGames = (GameQuery: GameQuery) =>
       // 如果最后一页存在下一页/则继续全部页面集合长度+1/否则未定义
       return lastPage.next ? allPages.length + 1 : undefined
     },
+    staleTime: 24 * 60 * 60 * 1000, // 24小时缓存
   })
 
 // 默认导出hook
