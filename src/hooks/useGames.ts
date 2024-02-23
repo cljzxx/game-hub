@@ -25,8 +25,8 @@ const useGames = (GameQuery: GameQuery) =>
       // 通用请求实例/根据配置查询条件获取数据
       apiClient.getAll({
         params: {
-          genres: GameQuery.genre?.id, // 查询参数/流派ID/可选性
-          parent_platforms: GameQuery.platform?.id, // 父级字段/查询参数/平台ID/可选性
+          genres: GameQuery.genreId, // 查询参数/流派ID
+          parent_platforms: GameQuery.platformId, // 父级字段/查询参数/平台ID
           ordering: GameQuery.sortOrder, // 查询参数/排序值
           search: GameQuery.searchText, // 查询参数/搜索标题
           page: pageParam, // 翻页参数

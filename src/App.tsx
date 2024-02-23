@@ -11,8 +11,8 @@ import GameHeading from './components/GameHeading'
 
 // 游戏查询对象
 export interface GameQuery {
-  genre: Genre | null // 流派对象
-  platform: Platform | null //平台对象
+  genreId?: number // 流派对象ID/可选性
+  platformId?: number //平台对象ID/可选性
   sortOrder: string // 当前排序值
   searchText: string // 查询内容
 }
@@ -43,10 +43,12 @@ function App() {
         {/* 侧边栏区域/水平内边距 */}
         <GridItem area='aside' paddingX={5}>
           <GenreList
-            // 传入当前游戏查询对象的属性流派对象
-            selectedGenre={gameQuery.genre}
-            // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性流派对象
-            onSelectGenre={genre => setGameQuery({ ...gameQuery, genre })}
+            // 传参：当前的流派ID
+            selectedGenreId={gameQuery.genreId}
+            // 传参：父级函数/更新当前流派ID
+            onSelectGenre={genre =>
+              setGameQuery({ ...gameQuery, genreId: genre.id })
+            }
           />
         </GridItem>
       </Show>
@@ -59,11 +61,11 @@ function App() {
           <Flex marginBottom={5}>
             <Box marginRight={5}>
               <PlatformSelector
-                // 传入当前游戏查询对象的属性平台对象
-                selectedPlatform={gameQuery.platform}
-                // 回调函数/点击事件返回已选择参数/更新游戏查询对象的属性平台对象
+                // 传参：当前平台ID
+                selectedPlatformId={gameQuery.platformId}
+                // 传参：父级函数/更新当前平台ID
                 onSelectPlatform={platform =>
-                  setGameQuery({ ...gameQuery, platform })
+                  setGameQuery({ ...gameQuery, platformId: platform.id })
                 }
               />
             </Box>
