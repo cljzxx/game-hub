@@ -1,23 +1,18 @@
 import { Heading } from '@chakra-ui/react'
 import { GameQuery } from '../App'
-import { useState } from 'react'
 import useGenres from '../hooks/useGenres'
-import usePlatforms from '../hooks/usePlatforms'
+import usePlatform from '../hooks/usePlatform'
+import useGenre from '../hooks/useGenre'
 // 定义游戏查询参数
 interface Props {
   gameQuery: GameQuery
 }
 // 游戏标题组件
 const GameHeading = ({ gameQuery }: Props) => {
-  // 获取流派数据/并且别名
-  const { data: genres } = useGenres()
-  // 通过流派数据结果数组/找到ID相同的数据对象
-  const genre = genres?.results.find(g => g.id === gameQuery.genreId)
-
-  // 获取平台数据/并且别名
-  const { data: platforms } = usePlatforms()
-  // 通过平台数据结果数组/找到ID相同的数据对象
-  const platform = platforms?.results.find(p => p.id === gameQuery.platformId)
+  // 使用钩子：传参ID获取流派对象
+  const genre = useGenre(gameQuery.genreId)
+  // 使用钩子：传参ID获取平台对象
+  const platform = usePlatform(gameQuery.platformId)
 
   // 自定义变量标题（可选性/或为空）
   const heading = `${platform?.name || ''} ${genre?.name || ''} Games`

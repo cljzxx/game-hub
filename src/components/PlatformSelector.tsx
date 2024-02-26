@@ -1,6 +1,7 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { BsChevronDown } from 'react-icons/bs'
 import usePlatforms, { Platform } from '../hooks/usePlatforms'
+import usePlatform from '../hooks/usePlatform'
 
 // 定义选择平台回调函数
 interface Props {
@@ -12,8 +13,8 @@ const PlatformSelector = ({ selectedPlatformId, onSelectPlatform }: Props) => {
   // 通过平台钩子获取数据
   const { data, error } = usePlatforms()
 
-  // 通过平台数据结果数组/找到ID相同的数据对象
-  const selectedPlatform = data?.results.find(p => p.id === selectedPlatformId)
+  // 使用钩子：传参ID获取平台对象
+  const selectedPlatform = usePlatform(selectedPlatformId)
 
   if (error) return null // 如果有错误则不显示
 

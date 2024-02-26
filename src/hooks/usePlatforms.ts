@@ -21,7 +21,7 @@ const usePlatforms = () =>
     queryFn: apiClient.getAll, // 调用通用请求实例/获取全部数据方法
     staleTime: 24 * 60 * 60 * 1000, // 24小时
     // 初始化数据（静态数据）/构建对象形式以满足FetchResponse类型数据结构
-    initialData: { count: platforms.length, results: platforms },
+    initialData: platforms, // 注释后获取最新的接口数据
   })
 
 // 导出默认钩子组件

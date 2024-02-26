@@ -21,7 +21,7 @@ const useGenres = () =>
     queryFn: apiClient.getAll, // 调用通用请求实例/获取全部数据方法
     staleTime: 24 * 60 * 60 * 1000, // 每24小时更新缓存
     // 初始缓存数据（静态数据）/构建对象形式以满足FetchResponse类型结构
-    initialData: { count: genres.length, results: genres },
+    initialData: genres, // 注释后获取最新的接口数据
   })
 
 export default useGenres
