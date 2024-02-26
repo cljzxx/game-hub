@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import platforms from '../data/platforms'
 import APIClient from '../services/api-client'
+import ms from 'ms'
 
 // 创建通用请求类实例/指定对象类型/端点参数
 const apiClient = new APIClient<Platform>('/platforms/lists/parents')
@@ -19,7 +20,7 @@ const usePlatforms = () =>
   useQuery({
     queryKey: ['platform'], // 缓存key
     queryFn: apiClient.getAll, // 调用通用请求实例/获取全部数据方法
-    staleTime: 24 * 60 * 60 * 1000, // 24小时
+    staleTime: ms('24h'), // 每24小时更新缓存
     // 初始化数据（静态数据）/构建对象形式以满足FetchResponse类型数据结构
     initialData: platforms, // 注释后获取最新的接口数据
   })

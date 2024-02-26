@@ -2,6 +2,7 @@ import { GameQuery } from '../App'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Platform } from './usePlatforms'
 import APIClient from '../services/api-client'
+import ms from 'ms'
 
 // 创建通用请求类实例/指定对象类型/端点参数
 const apiClient = new APIClient<Game>('/games')
@@ -38,7 +39,7 @@ const useGames = (GameQuery: GameQuery) =>
       // 如果最后一页存在下一页/则继续全部页面集合长度+1/否则未定义
       return lastPage.next ? allPages.length + 1 : undefined
     },
-    staleTime: 24 * 60 * 60 * 1000, // 24小时缓存
+    staleTime: ms('24h'), // 每24小时更新缓存
   })
 
 // 默认导出hook
